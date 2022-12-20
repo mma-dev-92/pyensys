@@ -1,12 +1,7 @@
 from abc import ABC, abstractmethod
-from enum import Enum
-
 import numpy as np
 
-
-class CarrierType(Enum):
-    RENEWABLE = 1
-    FUEL = 2
+from builder.system.types import CarrierType
 
 
 class Carrier(ABC):
@@ -30,7 +25,7 @@ class Fuel(Carrier):
         """
         :param name: name of given fuel
         :param availability: availability per year, y -> total amount
-        :param price: price per year, y -> cost per unit
+        :param price: price per year, y -> cost per elements
         :param gcv: float - gross caloric value
         :param ncv: float - net caloric value
         """
@@ -61,21 +56,21 @@ class Fuel(Carrier):
         return self.__ncv
 
 
-class Renewable(Carrier):
+class Profile(Carrier):
 
-    def __init__(self, name: str, profile: np.ndarray):
+    def __init__(self, name: str, series: np.ndarray):
         """
-        :param name: name of given fuel
-        :param profile: renewable carrier hourly activity, e.g. insolation factor for solar energy, velocity for wind
+        :param name: name of given profile
+        :param series: renewable carrier hourly activity, e.g. insolation factor for solar energy, velocity for wind
         """
 
-        super(Renewable, self).__init__(name)
-        self.__profile = profile
+        super(Profile, self).__init__(name)
+        self.__series = series
 
     @property
     def carrier_type(self) -> CarrierType:
-        return CarrierType.RENEWABLE
+        return CarrierType.PROFILE
 
     @property
-    def profile(self) -> np.ndarray:
-        return self.__profile
+    def series(self) -> np.ndarray:
+        return self.__series

@@ -22,20 +22,14 @@ class DynamicEnum:
         return type(self) == type(other) and self.__id == other.__idx
 
 
-class EnergyType(DynamicEnum):
-    pass
-
-
 class EmissionType(DynamicEnum):
     pass
 
 
-class Placement(Enum):
-    GLOBAL = 1
-    LOCAL = 2
+class EnergyType(DynamicEnum):
+    pass
 
 
-class Generation(Enum):
-    CONTROLLABLE = 1
-    PROFILED = 2
-    FIXED = 3
+class CarrierType(Enum):
+    PROFILE = 1
+    FUEL = 2

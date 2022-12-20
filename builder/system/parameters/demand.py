@@ -1,6 +1,6 @@
 import numpy as np
 
-from builder.data.utils import EnergyType
+from builder.system.types import EnergyType
 
 
 class EnergyDemand:
