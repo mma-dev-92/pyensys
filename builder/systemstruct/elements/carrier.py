@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 import numpy as np
 
-from builder.system.types import CarrierType
+from builder.systemstruct.types import CarrierType
 
 
 class Carrier(ABC):

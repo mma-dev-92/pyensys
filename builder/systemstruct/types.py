@@ -33,3 +33,8 @@ class EnergyType(DynamicEnum):
 class CarrierType(Enum):
     PROFILE = 1
     FUEL = 2
+
+
+class PlacementType(Enum):
+    LOCAL = 1
+    CENTRAL = 2

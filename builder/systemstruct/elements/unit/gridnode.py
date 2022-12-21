@@ -1,4 +1,4 @@
-from builder.system.elements.unit.source import CentralSource, LocalSource
+from builder.systemstruct.elements.unit.source import CentralSource, LocalSource
 
 
 class GridNode:
