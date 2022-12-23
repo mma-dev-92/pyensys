@@ -1,14 +1,15 @@
 from abc import ABC, abstractmethod
 from typing import Dict
-
 import numpy as np
 
+from builder.systemstruct.elements.utils import IdManager
 from builder.systemstruct.types import CarrierType, EmissionType
 
 
-class Carrier(ABC):
+class Carrier(ABC, IdManager):
 
     def __init__(self, name: str):
+        super().__init__()
         self.__name = name
 
     @property

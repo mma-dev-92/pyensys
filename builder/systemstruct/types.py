@@ -1,25 +1,17 @@
 from enum import Enum
 
+from builder.systemstruct.elements.utils import IdManager
 
-class DynamicEnum:
 
-    __counter = 0
+class DynamicEnum(IdManager):
 
     def __init__(self, name: str):
+        super().__init__()
         self.__name = name
-        self.__id = DynamicEnum.__counter
-        DynamicEnum.__counter += 1
 
     @property
     def name(self) -> str:
         return self.__name
-
-    @property
-    def identifier(self) -> int:
-        return self.__id
-
-    def __eq__(self, other):
-        return type(self) == type(other) and self.__id == other.__idx
 
 
 class EmissionType(DynamicEnum):

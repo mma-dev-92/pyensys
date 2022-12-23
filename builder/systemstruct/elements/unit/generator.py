@@ -1,13 +1,12 @@
 from typing import Dict
 import numpy as np
 
-from builder.systemstruct.elements.carrier import Carrier
-from builder.systemstruct.elements.unit.params import CostParams, TimeParams
-from builder.systemstruct.elements.unit.unit import Unit
+from builder.systemstruct.elements.unit.unit import Unit, CostParams, TimeParams
+from builder.systemstruct.elements.utils import IdManager
 from builder.systemstruct.types import EnergyType, PlacementType
 
 
-class Generator(Unit):
+class Generator(Unit, IdManager):
 
     def __init__(
             self,
@@ -16,14 +15,14 @@ class Generator(Unit):
             energy_type: EnergyType,
             cost_params: CostParams,
             time_params: TimeParams,
-            carrier: Carrier,
+            carrier_id: int,
             efficiency: float,
             demand_per_unit: Dict[EnergyType, np.ndarray],
     ):
 
         super().__init__(name, placement, energy_type, cost_params, time_params)
         self.__demand_per_unit = demand_per_unit
-        self.__carrier = carrier
+        self.__carrier_id = carrier_id
         self.__efficiency = efficiency
 
     @property
@@ -40,13 +39,13 @@ class Generator(Unit):
         return self.__demand_per_unit
 
     @property
-    def carrier(self) -> Carrier:
+    def carrier(self) -> int:
         """
         Energy carrier used by generator.
 
-        :return: Carrier
+        :return: int - and id of a carrier
         """
-        return self.__carrier
+        return self.__carrier_id
 
     @property
     def efficiency(self) -> float:

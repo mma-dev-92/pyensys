@@ -1,23 +1,27 @@
+import dataclasses
 import numpy as np
 
-from builder.systemstruct.elements.unit.params import CostParams, TimeParams
 from builder.systemstruct.types import EnergyType, PlacementType
+
+
+@dataclasses.dataclass
+class CostParams:
+    capex: np.ndarray
+    opex: np.ndarray
+
+
+@dataclasses.dataclass
+class TimeParams:
+    life_time: int
+    build_time: int
+    amortization_time: int
 
 
 class Unit:
 
-    __counter = 0
+    def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType, cost_params: CostParams,
+                 time_params: TimeParams):
 
-    def __init__(
-            self,
-            name: str,
-            placement: PlacementType,
-            energy_type: EnergyType,
-            cost_params: CostParams,
-            time_params: TimeParams
-    ):
-
-        self.__id = self.__next_id()
         self.__name = name
         self.__placement = placement
         self.__energy_type = energy_type
@@ -28,16 +32,6 @@ class Unit:
 
         self.__capex = cost_params.capex
         self.__opex = cost_params.opex
-
-    @classmethod
-    def __next_id(cls):
-        result = cls.__counter
-        cls.__counter += 1
-        return result
-
-    @property
-    def id(self) -> int:
-        return self.__id
 
     @property
     def name(self) -> str:

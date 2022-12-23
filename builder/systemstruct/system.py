@@ -10,6 +10,7 @@ from builder.systemstruct.elements.zone import Zone
 from builder.systemstruct.types import EnergyType
 
 
+# TODO: implement this class + validation for adding and removing elements
 class EnergySystem:
 
     def __init__(self, name: str, time_horizon: int, hours_per_year: int):
@@ -18,17 +19,17 @@ class EnergySystem:
         self.__n_years = time_horizon
         self.__n_hours = hours_per_year
 
-        self.__carriers = dict()
         self.__energy_types = dict()
+        self.__carriers = dict()
 
         self.__generators = dict()
         self.__storages = dict()
         self.__grid_nodes = dict()
 
         self.__grids = dict()
-        self.__stacks = {}
+        self.__stacks = dict()
 
-        self.__zones = {}
+        self.__zones = dict()
 
     def add_energy_type(self, energy_type: EnergyType) -> None:
         pass

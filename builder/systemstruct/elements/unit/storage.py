@@ -1,12 +1,13 @@
 from typing import Dict
 import numpy as np
 
-from builder.systemstruct.elements.unit.params import CostParams, TimeParams
-from builder.systemstruct.elements.unit.unit import Unit
+from builder.systemstruct.elements.unit.unit import Unit, CostParams, TimeParams
+from builder.systemstruct.elements.utils import IdManager
 from builder.systemstruct.types import PlacementType, EnergyType
 
 
-class Storage(Unit):
+# TODO: energy losses
+class Storage(Unit, IdManager):
 
     def __init__(
             self,
