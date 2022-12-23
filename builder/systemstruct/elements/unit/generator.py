@@ -1,16 +1,33 @@
+from typing import Dict
+import numpy as np
+
 from builder.systemstruct.elements.carrier import Carrier
-from builder.systemstruct.elements.unit.source import LocalSource, CentralSource
-from builder.systemstruct.parameters.demand import Demand
+from builder.systemstruct.elements.unit.params import CostParams, TimeParams
+from builder.systemstruct.elements.unit.unit import Unit
+from builder.systemstruct.types import EnergyType, PlacementType
 
 
-class Generator:
-    def __init__(self, demand_per_unit: Demand, carrier: Carrier, efficiency: float):
+class Generator(Unit):
+
+    def __init__(
+            self,
+            name: str,
+            placement: PlacementType,
+            energy_type: EnergyType,
+            cost_params: CostParams,
+            time_params: TimeParams,
+            carrier: Carrier,
+            efficiency: float,
+            demand_per_unit: Dict[EnergyType, np.ndarray],
+    ):
+
+        super().__init__(name, placement, energy_type, cost_params, time_params)
         self.__demand_per_unit = demand_per_unit
         self.__carrier = carrier
         self.__efficiency = efficiency
 
     @property
-    def demand_per_unit(self) -> Demand:
+    def demand_per_unit(self) -> Dict[EnergyType, np.ndarray]:
         """
         Energy demand per unit of produced energy.
 
@@ -18,7 +35,7 @@ class Generator:
         electricity). This parameter defines demand per 1 unit of output energy. Type of needed energy can
         be different, that the type of energy produced by the source.
 
-        :return: Demand
+        :return: Dict[EnergyType, np.ndarray]
         """
         return self.__demand_per_unit
 
@@ -41,11 +58,3 @@ class Generator:
         :return: float
         """
         return self.__efficiency
-
-
-class LocalGenerator(LocalSource, Generator):
-    pass
-
-
-class CentralGenerator(CentralSource, Generator):
-    pass
