@@ -20,7 +20,8 @@ class Generator(Unit, IdManager):
             demand_per_unit: Dict[EnergyType, np.ndarray],
     ):
 
-        super().__init__(name, placement, energy_type, cost_params, time_params)
+        Unit.__init__(self, placement, energy_type, cost_params, time_params)
+        IdManager.__init__(self, name)
         self.__demand_per_unit = demand_per_unit
         self.__carrier_id = carrier_id
         self.__efficiency = efficiency

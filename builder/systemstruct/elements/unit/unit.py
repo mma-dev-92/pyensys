@@ -19,10 +19,9 @@ class TimeParams:
 
 class Unit:
 
-    def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType, cost_params: CostParams,
+    def __init__(self, placement: PlacementType, energy_type: EnergyType, cost_params: CostParams,
                  time_params: TimeParams):
 
-        self.__name = name
         self.__placement = placement
         self.__energy_type = energy_type
 
@@ -32,10 +31,6 @@ class Unit:
 
         self.__capex = cost_params.capex
         self.__opex = cost_params.opex
-
-    @property
-    def name(self) -> str:
-        return self.__name
 
     @property
     def life_time(self) -> int:

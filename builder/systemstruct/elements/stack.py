@@ -16,10 +16,10 @@ class StackTuple:
 
 class Stack(IdManager):
 
-    def __init__(self, members: Dict[EnergyType, StackTuple], max_peak2base: Dict[EnergyType, float],
+    def __init__(self, name: str, members: Dict[EnergyType, StackTuple], max_peak2base: Dict[EnergyType, float],
                  max_stor2base: Dict[EnergyType, float]):
 
-        super().__init__()
+        super().__init__(name)
         self.__members = members
         self.__max_p2b = max_peak2base
         self.__max_s2b = max_stor2base

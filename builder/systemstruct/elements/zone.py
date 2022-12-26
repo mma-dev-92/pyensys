@@ -8,8 +8,8 @@ from builder.systemstruct.types import EnergyType
 
 class Zone(IdManager):
 
-    def __init__(self, demand: Dict[EnergyType, np.ndarray], stacks: np.ndarray, base_fractions: Series):
-        super().__init__()
+    def __init__(self, name: str, demand: Dict[EnergyType, np.ndarray], stacks: np.ndarray, base_fractions: Series):
+        super().__init__(name)
         self.__demand = demand
         self.__stacks = stacks
         self.__base_fractions = base_fractions

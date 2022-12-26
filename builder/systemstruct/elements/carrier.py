@@ -9,12 +9,7 @@ from builder.systemstruct.types import CarrierType, EmissionType
 class Carrier(ABC, IdManager):
 
     def __init__(self, name: str):
-        super().__init__()
-        self.__name = name
-
-    @property
-    def name(self) -> str:
-        return self.__name
+        IdManager.__init__(self, name)
 
     @abstractmethod
     @property

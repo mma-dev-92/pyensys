@@ -5,4 +5,4 @@ from builder.systemstruct.types import EnergyType
 class Grid(IdManager):
 
     def __init__(self, name: str, energy_type: EnergyType, capacity: float, loss: float):
-        super().__init__()
+        IdManager.__init__(self, name)

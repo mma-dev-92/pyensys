@@ -15,7 +15,8 @@ class GridNode(Unit, IdManager):
             grid_id: int
     ):
 
-        super().__init__(name, placement, energy_type, cost_params, time_params)
+        Unit.__init__(self, placement, energy_type, cost_params, time_params)
+        IdManager.__init__(self, name)
         self.__grid_id = grid_id
 
     @property

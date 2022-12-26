@@ -20,7 +20,8 @@ class Storage(Unit, IdManager):
             demand_per_unit_gen: Dict[EnergyType, np.ndarray]
     ):
 
-        super().__init__(name, placement, energy_type, cost_params, time_params)
+        Unit.__init__(self, placement, energy_type, cost_params, time_params)
+        IdManager.__init__(self, name)
         self.__demand_per_unit_load = demand_per_unit_load
         self.__demand_per_unit_gen = demand_per_unit_gen
 
