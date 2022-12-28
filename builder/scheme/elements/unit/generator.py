@@ -1,29 +1,23 @@
 from typing import Dict
 import numpy as np
 
-from builder.systemstruct.elements.unit.unit import Unit, CostParams, TimeParams
-from builder.systemstruct.elements.utils import IdManager
-from builder.systemstruct.types import EnergyType, PlacementType
+from builder.scheme.elements.unit.unit import Unit, CostParams, TimeParams, ElementParameters
+from builder.scheme.elements.utils import IdManager
+from builder.scheme.types import EnergyType, PlacementType
 
 
-class Generator(Unit, IdManager):
+class GeneratorParameters(ElementParameters):
 
     def __init__(
             self,
-            name: str,
-            placement: PlacementType,
-            energy_type: EnergyType,
+            generator_id: int,
             cost_params: CostParams,
             time_params: TimeParams,
-            carrier_id: int,
             efficiency: float,
-            demand_per_unit: Dict[EnergyType, np.ndarray],
+            demand_per_unit: Dict[EnergyType, np.ndarray]
     ):
-
-        Unit.__init__(self, placement, energy_type, cost_params, time_params)
-        IdManager.__init__(self, name)
+        super().__init__(generator_id, cost_params, time_params)
         self.__demand_per_unit = demand_per_unit
-        self.__carrier_id = carrier_id
         self.__efficiency = efficiency
 
     @property
@@ -40,15 +34,6 @@ class Generator(Unit, IdManager):
         return self.__demand_per_unit
 
     @property
-    def carrier(self) -> int:
-        """
-        Energy carrier used by generator.
-
-        :return: int - and id of a carrier
-        """
-        return self.__carrier_id
-
-    @property
     def efficiency(self) -> float:
         """
         Efficiency of the generator.
@@ -58,3 +43,24 @@ class Generator(Unit, IdManager):
         :return: float
         """
         return self.__efficiency
+
+
+class Generator(Unit, IdManager):
+
+    def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType, carrier_id: int):
+        Unit.__init__(self, placement, energy_type)
+        IdManager.__init__(self, name)
+        self.__carrier_id = carrier_id
+
+    @property
+    def carrier_id(self) -> int:
+        """
+        Energy carrier used by generator.
+
+        :return: int - id of a carrier
+        """
+        return self.__carrier_id
+
+    def __repr__(self):
+        return f"Generator(id={self.id}, name={self.name}, placement={self.placement}, energy_type={self.energy_type}" \
+               f"carrier_id={self.carrier_id})"

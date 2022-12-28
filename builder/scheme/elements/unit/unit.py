@@ -1,7 +1,7 @@
 import dataclasses
 import numpy as np
 
-from builder.systemstruct.types import EnergyType, PlacementType
+from builder.scheme.types import EnergyType, PlacementType
 
 
 @dataclasses.dataclass
@@ -17,20 +17,26 @@ class TimeParams:
     amortization_time: int
 
 
-class Unit:
+class ElementParameters:
 
-    def __init__(self, placement: PlacementType, energy_type: EnergyType, cost_params: CostParams,
-                 time_params: TimeParams):
+    def __init__(self, element_id: int, cost_params: CostParams, time_params: TimeParams):
 
-        self.__placement = placement
-        self.__energy_type = energy_type
-
+        self.__element_id = element_id
         self.__life_time = time_params.life_time
         self.__build_time = time_params.build_time
         self.__amortization_time = time_params.amortization_time
 
         self.__capex = cost_params.capex
         self.__opex = cost_params.opex
+
+    @property
+    def id(self) -> int:
+        """
+        Parameterized element identifier.
+
+        :return: int
+        """
+        return self.__element_id
 
     @property
     def life_time(self) -> int:
@@ -69,15 +75,6 @@ class Unit:
         return self.__amortization_time
 
     @property
-    def energy_type(self) -> EnergyType:
-        """
-        Type of the source energy output.
-
-        :return: EnergyType
-        """
-        return self.__energy_type
-
-    @property
     def capex(self) -> np.ndarray:
         """
         Investment cost.
@@ -98,6 +95,23 @@ class Unit:
         :return: Y-dimensional vector containing investment cost for each year.
         """
         return self.__opex
+
+
+class Unit:
+
+    def __init__(self, placement: PlacementType, energy_type: EnergyType):
+
+        self.__placement = placement
+        self.__energy_type = energy_type
+
+    @property
+    def energy_type(self) -> EnergyType:
+        """
+        Type of the source energy output.
+
+        :return: EnergyType
+        """
+        return self.__energy_type
 
     @property
     def placement(self) -> PlacementType:

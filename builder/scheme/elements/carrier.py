@@ -2,8 +2,8 @@ from abc import ABC, abstractmethod
 from typing import Dict
 import numpy as np
 
-from builder.systemstruct.elements.utils import IdManager
-from builder.systemstruct.types import CarrierType, EmissionType
+from builder.scheme.elements.utils import IdManager
+from builder.scheme.types import CarrierType, EmissionType
 
 
 class Carrier(ABC, IdManager):
@@ -16,12 +16,43 @@ class Carrier(ABC, IdManager):
     def carrier_type(self) -> CarrierType:
         pass
 
+    def __repr__(self):
+        return f"Carrier(id={self.id}, name={self.name}, carrier_type={self.carrier_type})"
+
+
+class CarrierParameters:
+
+    def __init__(self, carrier_id: int):
+        self.__carrier_id = carrier_id
+
+    @property
+    def id(self) -> int:
+        """
+        Parameterized element identifier.
+
+        :return: int
+        """
+        return self.__carrier_id
+
 
 class Fuel(Carrier):
 
+    def __init__(self, name: str):
+        """
+        :param name: name of given fuel
+        """
+        super(Fuel, self).__init__(name)
+
+    @property
+    def carrier_type(self) -> CarrierType:
+        return CarrierType.FUEL
+
+
+class FuelParameters(CarrierParameters):
+
     def __init__(
             self,
-            name: str,
+            carrier_id: int,
             availability: np.ndarray,
             price: np.ndarray,
             gcv: float,
@@ -29,23 +60,19 @@ class Fuel(Carrier):
             emission: Dict[EmissionType]
     ):
         """
-        :param name: name of given fuel
+        :param carrier_id:
         :param availability: availability per year, y -> total amount
         :param price: price per year, y -> cost of 1 unit of fuel
         :param gcv: float - gross caloric value
         :param ncv: float - net caloric value
         :param emission: Dict[EmissionType, np.ndarray] - yearly emission per 1 unit of fuel
         """
-        super(Fuel, self).__init__(name)
+        super().__init__(carrier_id)
         self.__availability = availability
         self.__price = price
         self.__ncv = ncv
         self.__gcv = gcv
         self.__emission = emission
-
-    @property
-    def carrier_type(self) -> CarrierType:
-        return CarrierType.FUEL
 
     @property
     def availability(self) -> np.ndarray:
@@ -70,19 +97,27 @@ class Fuel(Carrier):
 
 class Profile(Carrier):
 
-    def __init__(self, name: str, series: np.ndarray):
+    def __init__(self, name: str):
         """
         :param name: name of given profile
-        :param series: carrier hourly activity, e.g. insolation factor for solar energy, velocity for wind, ...
         """
-
         super(Profile, self).__init__(name)
-        self.__series = series
 
     @property
     def carrier_type(self) -> CarrierType:
         return CarrierType.PROFILE
 
+
+class ProfileParameters(CarrierParameters):
+    def __init__(self, carrier_id: int, series: np.ndarray):
+        """
+        :param carrier_id:
+        :param series: carrier hourly activity, e.g. insolation factor for solar energy, velocity for wind, ...
+        """
+        super().__init__(carrier_id)
+        self.__series = series
+
     @property
     def series(self) -> np.ndarray:
         return self.__series
+

@@ -1,23 +1,20 @@
 from typing import Dict
 
-from builder.systemstruct.elements.carrier import Carrier
-from builder.systemstruct.elements.stack import Stack
-from builder.systemstruct.elements.grid import Grid
-from builder.systemstruct.elements.unit.generator import Generator
-from builder.systemstruct.elements.unit.gridnode import GridNode
-from builder.systemstruct.elements.unit.storage import Storage
-from builder.systemstruct.elements.zone import Zone
-from builder.systemstruct.types import EnergyType, EmissionType
+from builder.scheme.elements.carrier import Carrier
+from builder.scheme.elements.stack import Stack
+from builder.scheme.elements.grid import Grid
+from builder.scheme.elements.unit.generator import Generator
+from builder.scheme.elements.unit.gridnode import GridNode
+from builder.scheme.elements.unit.storage import Storage
+from builder.scheme.elements.zone import Zone
+from builder.scheme.types import EnergyType, EmissionType
 
 
 # TODO: implement this class + validation for adding and removing elements
-class EnergySystem:
+class EnergySystemScheme:
 
-    def __init__(self, name: str, time_horizon: int, hours_per_year: int):
+    def __init__(self, name: str):
         self.__name = name
-
-        self.__n_years = time_horizon
-        self.__n_hours = hours_per_year
 
         self.__energy_types = dict()
         self.__emission_types = dict()
@@ -89,14 +86,6 @@ class EnergySystem:
     @property
     def name(self) -> str:
         return self.__name
-
-    @property
-    def time_horizon(self) -> int:
-        return self.__n_years
-
-    @property
-    def hours_per_year(self) -> int:
-        return self.__n_hours
 
     @property
     def zones(self) -> Dict[int, Zone]:
