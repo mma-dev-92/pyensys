@@ -7,7 +7,7 @@ from builder.scheme.elements.unit.generator import Generator
 from builder.scheme.elements.unit.gridnode import GridNode
 from builder.scheme.elements.unit.storage import Storage
 from builder.scheme.elements.zone import Zone
-from builder.scheme.types import EnergyType, EmissionType
+from builder.scheme.types import EnergyType, CarrierType
 
 
 # TODO: implement this class + validation for adding and removing elements
@@ -17,7 +17,6 @@ class EnergySystemScheme:
         self.__name = name
 
         self.__energy_types = dict()
-        self.__emission_types = dict()
         self.__carriers = dict()
 
         self.__generators = dict()
@@ -33,12 +32,6 @@ class EnergySystemScheme:
         pass
 
     def remove_energy_type(self, energy_type_id: int) -> EnergyType:
-        pass
-
-    def add_emission_type(self, emission_type: EmissionType) -> None:
-        pass
-
-    def remove_emission_type(self, emission_type_id: int) -> EmissionType:
         pass
 
     def add_carrier(self, carrier: Carrier) -> None:
@@ -92,16 +85,12 @@ class EnergySystemScheme:
         return self.__zones
 
     @property
-    def carriers(self) -> Dict[int, Carrier]:
+    def carriers(self) -> Dict[CarrierType, Dict[int, Carrier]]:
         return self.__carriers
 
     @property
     def energy_types(self) -> Dict[int, EnergyType]:
         return self.__energy_types
-
-    @property
-    def emission_types(self) -> Dict[int, EmissionType]:
-        return self.__emission_types
 
     @property
     def grid_systems(self) -> Dict[int, Grid]:

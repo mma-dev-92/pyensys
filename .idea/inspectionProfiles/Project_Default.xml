@@ -1,0 +1,64 @@
+<component name="InspectionProjectProfileManager">
+  <profile version="1.0">
+    <option name="myName" value="Project Default" />
+    <inspection_tool class="DuplicatedCode" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <Languages>
+        <language minSize="151" name="Python" />
+      </Languages>
+    </inspection_tool>
+    <inspection_tool class="Eslint" enabled="true" level="WARNING" enabled_by_default="true" />
+    <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredPackages">
+        <value>
+          <list size="8">
+            <item index="0" class="java.lang.String" itemvalue="ujson" />
+            <item index="1" class="java.lang.String" itemvalue="numpy" />
+            <item index="2" class="java.lang.String" itemvalue="gurobipy" />
+            <item index="3" class="java.lang.String" itemvalue="pandas" />
+            <item index="4" class="java.lang.String" itemvalue="dataclasses" />
+            <item index="5" class="java.lang.String" itemvalue="mpc" />
+            <item index="6" class="java.lang.String" itemvalue="setuptools" />
+            <item index="7" class="java.lang.String" itemvalue="python-intervals" />
+          </list>
+        </value>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8Inspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="E731" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyPep8NamingInspection" enabled="true" level="WEAK WARNING" enabled_by_default="true">
+      <option name="ignoredErrors">
+        <list>
+          <option value="N803" />
+          <option value="N802" />
+          <option value="N814" />
+        </list>
+      </option>
+    </inspection_tool>
+    <inspection_tool class="PyTypeCheckerInspection" enabled="false" level="WARNING" enabled_by_default="false" />
+    <inspection_tool class="PyUnresolvedReferencesInspection" enabled="true" level="WARNING" enabled_by_default="true">
+      <option name="ignoredIdentifiers">
+        <list>
+          <option value="gurobipy.*" />
+          <option value="parameters.technology.commands.Configuration" />
+          <option value="test.test_preprocess.test_data_reduction.id_clustering" />
+          <option value="zefir.translator.translator.Parameter" />
+          <option value="zefir.translator.param_set.Parameter" />
+          <option value="zefir.translator.subexpr.recursive_operator.sigma.RecursiveOperator" />
+          <option value="src.results.storage_results.dataclass" />
+          <option value="demand" />
+          <option value="pyomo.environ.NonNegativeReals" />
+          <option value="zefir_bejbe.model.engine.HT" />
+          <option value="zefir_bejbe.model.constr.lim.cap_lim.pp" />
+          <option value="zefir_bejbe.model.constr.lim.cap_lim.vv" />
+          <option value="zefir_bejbe.model.constr.lim.cap_lim.ii" />
+          <option value="zefir_bejbe.model.constr.heat.z_stack_constr.ZT_TT" />
+        </list>
+      </option>
+    </inspection_tool>
+  </profile>
+</component>

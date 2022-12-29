@@ -1,16 +1,14 @@
 from typing import List
 
-from builder.scheme.elements.stack import Stack
 from builder.scheme.elements.unit.unit import CostParams, TimeParams, ElementParameters
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import EnergyType
-import builder.scheme.error as err
 
 
-class Grid(IdManager):
+class Grid(IdElement):
 
     def __init__(self, name: str, energy_type: EnergyType, stacks: List[int]):
-        IdManager.__init__(self, name)
+        super().__init__(name)
         self.__energy_type = energy_type
         self.__stacks = stacks
 

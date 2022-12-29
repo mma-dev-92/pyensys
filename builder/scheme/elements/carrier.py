@@ -1,18 +1,18 @@
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 from typing import Dict
 import numpy as np
 
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import CarrierType, EmissionType
 
 
-class Carrier(ABC, IdManager):
+class Carrier(IdElement):
 
     def __init__(self, name: str):
-        IdManager.__init__(self, name)
+        IdElement.__init__(self, name)
 
-    @abstractmethod
     @property
+    @abstractmethod
     def carrier_type(self) -> CarrierType:
         pass
 
@@ -26,7 +26,7 @@ class CarrierParameters:
         self.__carrier_id = carrier_id
 
     @property
-    def id(self) -> int:
+    def carrier_id(self) -> int:
         """
         Parameterized element identifier.
 
@@ -36,12 +36,6 @@ class CarrierParameters:
 
 
 class Fuel(Carrier):
-
-    def __init__(self, name: str):
-        """
-        :param name: name of given fuel
-        """
-        super(Fuel, self).__init__(name)
 
     @property
     def carrier_type(self) -> CarrierType:
@@ -57,7 +51,7 @@ class FuelParameters(CarrierParameters):
             price: np.ndarray,
             gcv: float,
             ncv: float,
-            emission: Dict[EmissionType]
+            emission: Dict[EmissionType, float]
     ):
         """
         :param carrier_id:
@@ -96,12 +90,6 @@ class FuelParameters(CarrierParameters):
 
 
 class Profile(Carrier):
-
-    def __init__(self, name: str):
-        """
-        :param name: name of given profile
-        """
-        super(Profile, self).__init__(name)
 
     @property
     def carrier_type(self) -> CarrierType:

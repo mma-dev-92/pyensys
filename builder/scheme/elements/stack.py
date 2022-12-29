@@ -1,7 +1,7 @@
 import dataclasses
 from typing import Dict
 
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import PlacementType, EnergyType
 import builder.scheme.error as err
 
@@ -20,7 +20,7 @@ class StackTuple:
             raise ValueError(f"base_id must be always set, None value is not allowed")
 
 
-class Stack(IdManager):
+class Stack(IdElement):
 
     def __init__(self, name: str, members: Dict[EnergyType, StackTuple], placement: PlacementType):
 

@@ -2,7 +2,7 @@ from typing import Dict
 import numpy as np
 
 from builder.scheme.elements.unit.unit import Unit, CostParams, TimeParams, ElementParameters
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import PlacementType, EnergyType
 
 
@@ -47,11 +47,11 @@ class StorageParameters(ElementParameters):
         return self.__demand_per_unit_gen
 
 
-class Storage(Unit, IdManager):
+class Storage(Unit, IdElement):
 
     def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType):
         Unit.__init__(self, placement, energy_type)
-        IdManager.__init__(self, name)
+        IdElement.__init__(self, name)
 
     def __repr__(self):
         return f"Storage(id={self.id}, name={self.name}, placement={self.placement}, energy_type={self.energy_type})"

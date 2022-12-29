@@ -2,7 +2,7 @@ from typing import Dict
 import numpy as np
 
 from builder.scheme.elements.unit.unit import Unit, CostParams, TimeParams, ElementParameters
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import EnergyType, PlacementType
 
 
@@ -45,11 +45,11 @@ class GeneratorParameters(ElementParameters):
         return self.__efficiency
 
 
-class Generator(Unit, IdManager):
+class Generator(Unit, IdElement):
 
     def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType, carrier_id: int):
         Unit.__init__(self, placement, energy_type)
-        IdManager.__init__(self, name)
+        IdElement.__init__(self, name)
         self.__carrier_id = carrier_id
 
     @property
@@ -63,4 +63,4 @@ class Generator(Unit, IdManager):
 
     def __repr__(self):
         return f"Generator(id={self.id}, name={self.name}, placement={self.placement}, energy_type={self.energy_type}" \
-               f"carrier_id={self.carrier_id})"
+               f", carrier_id={self.carrier_id})"

@@ -1,14 +1,16 @@
 from enum import Enum
 
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 
 
-class EmissionType(IdManager):
+class EmissionType(IdElement):
+
     def __repr__(self):
         return f"EmissionType(id={self.id}, name={self.name})"
 
 
-class EnergyType(IdManager):
+class EnergyType(IdElement):
+
     def __repr__(self):
         return f"EnergyType(id={self.id}, name={self.name})"
 

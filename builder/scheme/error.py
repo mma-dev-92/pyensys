@@ -19,7 +19,3 @@ class SchemeExistingReferenceError(SchemeError):
     def __init__(self, element, reference_element, aggregate):
         self.message = f"removing element {repr(element)} from {repr(aggregate)} is not possible, other element " \
                        f"{repr(reference_element)} contains reference to it"
-
-
-class SchemeRemoveError(SchemeError):
-    pass

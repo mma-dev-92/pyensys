@@ -1,11 +1,11 @@
 from typing import Dict, List
 import numpy as np
 
-from builder.scheme.elements.utils import IdManager
+from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import EnergyType
 
 
-class Zone(IdManager):
+class Zone(IdElement):
 
     def __init__(self, name: str, available_stacks: List[int]):
         super().__init__(name)

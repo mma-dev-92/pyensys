@@ -100,7 +100,6 @@ class ElementParameters:
 class Unit:
 
     def __init__(self, placement: PlacementType, energy_type: EnergyType):
-
         self.__placement = placement
         self.__energy_type = energy_type
 
