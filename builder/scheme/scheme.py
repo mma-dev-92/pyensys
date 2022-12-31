@@ -28,49 +28,49 @@ class EnergySystemScheme:
 
         self.__zones = dict()
 
-    def add_energy_type(self, energy_type: EnergyType) -> None:
+    def add_energy_types(self, *energy_types: EnergyType) -> None:
         pass
 
     def remove_energy_type(self, energy_type_id: int) -> EnergyType:
         pass
 
-    def add_carrier(self, carrier: Carrier) -> None:
+    def add_carriers(self, *carriers: Carrier) -> None:
         pass
 
-    def remove_carrier(self, carrier_id) -> Carrier:
+    def remove_carrier(self, carrier_id: int) -> Carrier:
         pass
 
-    def add_generator(self, generator: Generator) -> None:
+    def add_generators(self, *generators: Generator) -> None:
         pass
 
     def remove_generator(self, generator_id: int) -> Generator:
         pass
 
-    def add_storage(self, storage: Storage) -> None:
+    def add_storages(self, *storages: Storage) -> None:
         pass
 
     def remove_storage(self, storage_id: int) -> Storage:
         pass
 
-    def add_grid_node(self, grid_node: GridNode) -> None:
+    def add_grid_nodes(self, *grid_nodes: GridNode) -> None:
         pass
 
     def remove_grid_node(self, grid_node_id: int) -> GridNode:
         pass
 
-    def add_stack(self, stack: Stack) -> None:
+    def add_stacks(self, *stacks: Stack) -> None:
         pass
 
     def remove_stack(self, stack_id: int) -> Stack:
         pass
 
-    def add_grid_system(self, grid_system: Grid) -> None:
+    def add_grid_systems(self, *grid_systems: Grid) -> None:
         pass
 
     def remove_grid_system(self, grid_system_id: int) -> Grid:
         pass
 
-    def add_zone(self, zone: Zone):
+    def add_zones(self, *zones: Zone):
         pass
 
     def remove_zone(self, zone_id: int) -> Zone:
