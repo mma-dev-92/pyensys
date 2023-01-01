@@ -9,6 +9,7 @@ import builder.scheme.error as err
 class TestEnergySystemSchemeGridNodes(BaseTestEnergySystemScheme):
 
     def setUp(self) -> None:
+        super(TestEnergySystemSchemeGridNodes, self).setUp()
         self.grid = Grid(name='empty_grid', energy_type=self.heat, stacks=[])
         self.grid_node_1 = GridNode(
             name='grid_node_1', energy_type=self.heat, grid_id=self.grid.id, placement=PlacementType.LOCAL)
@@ -25,7 +26,7 @@ class TestEnergySystemSchemeGridNodes(BaseTestEnergySystemScheme):
         self.assertTrue(self.system.grid_nodes[self.grid_node_1.id] == self.grid_node_1)
 
     def test_add_grid_node_with_non_existing_energy_type(self):
-        with self.assertRaises(err.SchemeElementNotFoundError):
+        with self.assertRaises(err.ElementNotFoundError):
             self.system.add_grid_nodes(
                 GridNode(name='tmp', energy_type=self.ee, grid_id=self.grid.id, placement=PlacementType.LOCAL)
             )
@@ -39,15 +40,8 @@ class TestEnergySystemSchemeGridNodes(BaseTestEnergySystemScheme):
     def test_add_same_grid_node_twice_raises_error(self):
         self.system.add_grid_systems(self.grid)
         self.system.add_grid_nodes(self.grid_node_1)
-        with self.assertRaises(err.SchemeDuplicateError):
+        with self.assertRaises(err.DuplicateError):
             self.system.add_grid_nodes(self.grid_node_1)
-
-    def test_add_grid_node_connected_to_grid_with_different_energy_type_raises_error(self):
-        ee_grid = Grid(name='ee_grid', energy_type=self.ee, stacks=[])
-        grid_node = GridNode(name='heat_node', placement=PlacementType.LOCAL, energy_type=self.heat, grid_id=ee_grid.id)
-        self.system.add_grid_systems(ee_grid)
-        with self.assertRaises(err.SchemeIncompatibleEnergyTypesError):
-            self.system.add_grid_nodes(grid_node)
 
     def test_add_grid_node_with_non_existing_grid_raises_error(self):
         with self.assertRaises(err.SchemeNonExistingReferenceError):
@@ -65,15 +59,15 @@ class TestEnergySystemSchemeGridNodes(BaseTestEnergySystemScheme):
         self.system.remove_stack(self.stack.id)
         try:
             self.system.remove_grid_node(self.grid_node_1.id)
-        except err.SchemeExistingReferenceError:
+        except err.ExistingReferenceSchemeError:
             self.fail()
 
     def test_remove_non_existing_grid_node_raises_error(self):
-        with self.assertRaises(err.SchemeElementNotFoundError):
+        with self.assertRaises(err.ElementNotFoundError):
             self.system.remove_grid_node(self.grid_node_1.id)
 
     def test_remove_grid_node_contained_in_existing_stack_raises_error(self):
         self.system.add_grid_nodes(self.grid_node_1)
         self.system.add_stacks(self.stack)
-        with self.assertRaises(err.SchemeExistingReferenceError):
+        with self.assertRaises(err.ExistingReferenceSchemeError):
             self.system.remove_grid_node(self.grid_node_1.id)

@@ -14,12 +14,15 @@ class EnergyType(IdElement):
     def __repr__(self):
         return f"EnergyType(id={self.id}, name={self.name})"
 
-
-class CarrierType(Enum):
-    PROFILE = 1
-    FUEL = 2
+    def __hash__(self):
+        return hash(self.__repr__())
 
 
-class PlacementType(Enum):
-    LOCAL = 1
-    CENTRAL = 2
+class CarrierType(str, Enum):
+    PROFILE = 'PROFILE'
+    FUEL = 'FUEL'
+
+
+class PlacementType(str, Enum):
+    LOCAL = 'LOCAL'
+    CENTRAL = 'CENTRAL'

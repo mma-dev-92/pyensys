@@ -10,8 +10,9 @@ import builder.scheme.error as err
 class TestEnergySystemSchemeGrids(BaseTestEnergySystemScheme):
 
     def setUp(self) -> None:
-        self.mpc = Generator(name='mpc', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.coal.id)
-        self.chp = Generator(name='chp', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.gas.id)
+        super(TestEnergySystemSchemeGrids, self).setUp()
+        self.mpc = Generator(name='mpc', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.coal)
+        self.chp = Generator(name='chp', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.gas)
 
         self.mpc_stack = Stack(
             name='mpc_stack', members={self.heat: StackTuple(base=self.mpc.id)}, placement=PlacementType.CENTRAL)
@@ -33,6 +34,13 @@ class TestEnergySystemSchemeGrids(BaseTestEnergySystemScheme):
         self.system.add_generators(self.mpc)
         self.system.add_stacks(self.mpc_stack)
         with self.assertRaises(err.SchemeNonExistingReferenceError):
+            self.system.add_grid_systems(self.grid)
+
+    def test_add_duplicate_raises_error(self):
+        self.system.add_generators(self.mpc, self.chp)
+        self.system.add_stacks(self.mpc_stack, self.chp_stack)
+        self.system.add_grid_systems(self.grid)
+        with self.assertRaises(err.DuplicateError):
             self.system.add_grid_systems(self.grid)
 
     def test_add_grid_with_non_existing_energy_type_raises_error(self):
@@ -60,7 +68,7 @@ class TestEnergySystemSchemeGrids(BaseTestEnergySystemScheme):
         self.assertTrue(removed_grid == self.empty_grid and len(self.system.grid_systems) == 0)
 
     def test_remove_non_existing_grid(self):
-        with self.assertRaises(err.SchemeElementNotFoundError):
+        with self.assertRaises(err.ElementNotFoundError):
             self.system.remove_grid_system(self.grid.id)
 
     def test_remove_grid_with_one_existing_grid_node_reference_raises_error(self):
@@ -68,5 +76,5 @@ class TestEnergySystemSchemeGrids(BaseTestEnergySystemScheme):
             name='grid_node', placement=PlacementType.LOCAL, energy_type=self.heat, grid_id=self.empty_grid.id)
         self.system.add_grid_systems(self.empty_grid)
         self.system.add_grid_nodes(grid_node)
-        with self.assertRaises(err.SchemeExistingReferenceError):
+        with self.assertRaises(err.ExistingReferenceSchemeError):
             self.system.remove_grid_node(self.empty_grid.id)

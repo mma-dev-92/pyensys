@@ -11,16 +11,10 @@ class GriNodeParameters(ElementParameters):
 
 class GridNode(Unit, IdElement):
 
-    def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType, grid_id: int):
+    def __init__(self, name: str, placement: PlacementType, energy_type: EnergyType):
         Unit.__init__(self, placement, energy_type)
         IdElement.__init__(self, name)
-        self.__grid_id = grid_id
-
-    @property
-    def grid_id(self) -> int:
-        return self.__grid_id
 
     def __repr__(self):
-        return f"GridNode(id={self.id}, name={self.name}, placement={self.placement}, energy_type={self.energy_type}" \
-               f"grid_id={self.grid_id})"
+        return f"GridNode(id={self.id}, name={self.name}, placement={self.placement}, energy_type={self.energy_type}"
 

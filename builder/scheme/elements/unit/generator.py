@@ -1,6 +1,7 @@
 from typing import Dict
 import numpy as np
 
+from builder.scheme.elements.carrier import Carrier
 from builder.scheme.elements.unit.unit import Unit, CostParams, TimeParams, ElementParameters
 from builder.scheme.elements.utils import IdElement
 from builder.scheme.types import EnergyType, PlacementType
@@ -60,6 +61,10 @@ class Generator(Unit, IdElement):
         :return: int - id of a carrier
         """
         return self.__carrier_id
+
+    @carrier_id.setter
+    def carrier_id(self, value: Carrier):
+        self.__carrier_id = value.id
 
     def __repr__(self):
         return f"Generator(id={self.id}, name={self.name}, placement={self.placement}, energy_type={self.energy_type}" \

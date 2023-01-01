@@ -10,9 +10,9 @@ class TestEnergySystemSchemeGenerators(BaseTestEnergySystemScheme):
     def setUp(self) -> None:
         super(TestEnergySystemSchemeGenerators, self).setUp()
         self.boiler = Generator(
-            name='boiler', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.coal.id)
+            name='boiler', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.coal)
         self.sol = Generator(
-            name='pv', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.solar.id)
+            name='pv', placement=PlacementType.LOCAL, energy_type=self.heat, carrier_id=self.solar)
 
     def test_add_generator(self):
         self.system.add_energy_types(self.heat)
@@ -35,7 +35,7 @@ class TestEnergySystemSchemeGenerators(BaseTestEnergySystemScheme):
         self.system.add_carriers(self.solar)
         self.system.add_generators(self.sol)
 
-        with self.assertRaises(err.SchemeDuplicateError):
+        with self.assertRaises(err.DuplicateError):
             self.system.add_generators(self.sol)
 
     def test_add_generator_before_adding_energy_type_raises_error(self):
@@ -60,7 +60,7 @@ class TestEnergySystemSchemeGenerators(BaseTestEnergySystemScheme):
         self.system.add_energy_types(self.heat)
         self.system.add_carriers(self.solar)
         self.system.add_generators(self.sol)
-        with self.assertRaises(err.SchemeElementNotFoundError):
+        with self.assertRaises(err.ElementNotFoundError):
             self.system.remove_generator(self.boiler.id)
 
     def test_remove_generator_contained_in_existing_stack_raises_error(self):
@@ -72,7 +72,7 @@ class TestEnergySystemSchemeGenerators(BaseTestEnergySystemScheme):
             name='test_stack', members={self.heat: StackTuple(base=self.sol.id)}, placement=PlacementType.LOCAL)
 
         self.system.add_stacks(test_stack)
-        with self.assertRaises(err.SchemeExistingReferenceError):
+        with self.assertRaises(err.ExistingReferenceSchemeError):
             self.system.remove_generator(self.sol.id)
 
     def test_remove_generator_contained_in_non_existing_stack(self):
@@ -88,5 +88,5 @@ class TestEnergySystemSchemeGenerators(BaseTestEnergySystemScheme):
 
         try:
             self.system.remove_generator(self.sol.id)
-        except err.SchemeExistingReferenceError:
+        except err.ExistingReferenceSchemeError:
             self.fail()

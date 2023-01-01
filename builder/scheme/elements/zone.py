@@ -1,23 +1,32 @@
 from typing import Dict, List
 import numpy as np
 
+from builder.scheme.elements.stack import Stack
 from builder.scheme.elements.utils import IdElement
-from builder.scheme.types import EnergyType
+from builder.scheme.types import EnergyType, PlacementType
+import builder.scheme.error as err
 
 
 class Zone(IdElement):
 
-    def __init__(self, name: str, available_stacks: List[int]):
+    def __init__(self, name: str, available_stacks: List[Stack]):
         super().__init__(name)
-        self.__available_stacks = available_stacks
+        self.__available_stacks = np.nan
+        self.__validate_stacks(self)
+        self.__available_stacks = [x.id for x in available_stacks]
 
     @property
     def available_stacks(self) -> List[int]:
         return self.__available_stacks
 
     @available_stacks.setter
-    def available_stacks(self, stack_ids: List[int]):
-        self.__available_stacks = stack_ids
+    def available_stacks(self, stacks: List[Stack]):
+        self.__available_stacks = [x.id for x in stacks]
+
+    def __validate_stacks(self, stacks: List[Stack]):
+        for stack in stacks:
+            if not stack.placement == PlacementType.LOCAL:
+                raise err.SchemeIncompatiblePlacementTypeError(element=stack, aggregate=self)
 
     def __repr__(self):
         return f"Zone(id={self.id}, name={self.name}, available_stacks={self.available_stacks})"
